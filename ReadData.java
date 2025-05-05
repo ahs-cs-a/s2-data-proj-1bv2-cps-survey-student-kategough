@@ -60,9 +60,18 @@ public class ReadData {
     // for the x column and y column
     public double[] stdDeviation(double[][] xy){
         double sum = 0;
-        double[] mean = ...
-        ...
-        return .. //sample variance!
+        double stdDev = 0.0;
+        double[] mean = mean(xy);
+        double[] standardDeviation = new double[xy[0].length];
+        for(int col = 0; col < xy[0].length; col++){
+            for(int row = 0; row < xy.length; row++){
+                sum = 0;
+                sum += Math.pow((xy[row] - mean[col]), 2);
+            }
+            stdDev = Math.sqrt(sum / (xy.length -1));
+            standardDeviation[col] = stdDev;
+        }
+        return standardDeviation; //sample variance!
     }
 
     // this returns the mean of each columns of data passed in
@@ -75,12 +84,13 @@ public class ReadData {
         double[] mean = new double[xy[0].length];
         for(int col = 0; col < xy[0].length; col++){
             for(int row = 0; row < xy.length; row++){
+                sum = 0;
                 sum += xy[row][col];
             }
             colMean = sum / xy[0].length;
             mean[col] = colMean;
         }
-        print1D(mean);
+        //print1D(mean);
         return mean;
     }
 
@@ -144,7 +154,8 @@ public class ReadData {
     public static void main(String[] args) {
         ReadData rd = new ReadData();
         rd.read();
-        rd.getColumns(1, 2);
+        // rd.getColumns(1, 2);
+        rd.mean(rd.getColumns(1, 2));
         // rd.runRegression();
     }
 
